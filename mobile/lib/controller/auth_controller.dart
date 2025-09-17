@@ -23,7 +23,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       Response response = await apiService.dio.post(
         "/auth/register",
-        data: {"name": name, "email": email, "password": password},
+        data: {"name": name, "email": email, "password": password , "role": "PATIENT"},
       );
       await _saveTokenAndUser(response.data);
     } catch (e) {
@@ -71,7 +71,7 @@ class AuthProvider extends ChangeNotifier {
     await prefs.setString(
       "user",
       jsonEncode(userJson),
-    ); // can also use jsonEncode
+    );
 
     apiService.setToken(token);
     _user = User.fromJson(userJson);

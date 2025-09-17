@@ -9,8 +9,6 @@ import com.doctoplus.backend.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +46,7 @@ public class RendezVousService {
                 .orElseThrow(() -> new RuntimeException("User not found."));
 
         if (patient.getRole() != Role.PATIENT) {
-            throw new RuntimeException("Only patients can create a rendezvous.");
+            throw new RuntimeException("Only patients can create a Appointment.");
         }
 
         rendezVous.setUserId(patient.getId());
@@ -87,14 +85,14 @@ public class RendezVousService {
 
     public void deleteRendezVous(String rendezVousId) {
         RendezVous rv = rendezVousRepository.findById(rendezVousId)
-                .orElseThrow(() -> new RuntimeException("RendezVous not found"));
+                .orElseThrow(() -> new RuntimeException("Appointments not found"));
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User patient = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found."));
 
         if (!rv.getUserId().equals(patient.getId())) {
-            throw new RuntimeException("You can only cancel your own RendezVous.");
+            throw new RuntimeException("You can only cancel your own Appointments.");
         }
 
         // Get the professional's disponibilities
@@ -104,10 +102,9 @@ public class RendezVousService {
         for (Disponibility d : disponibilities) {
             LocalTime slotTime = rv.getDateTime().toLocalTime();
             if (!d.getSlots().contains(slotTime)) {
-                // If the slot is not already in available slots, add it back
                 d.getSlots().add(slotTime);
                 disponibilityService.saveDisponibility(d);
-                break; // Only one slot per rendezvous
+                break;
             }
         }
 
@@ -118,10 +115,10 @@ public class RendezVousService {
 
     public void ratePro(String rendezVousId, int rating, String patientId) {
         RendezVous rv = rendezVousRepository.findById(rendezVousId)
-                .orElseThrow(() -> new RuntimeException("RendezVous not found"));
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
         if (!rv.getUserId().equals(patientId)) {
-            throw new RuntimeException("You can only rate your own rendezvous");
+            throw new RuntimeException("You can only rate your own appointments");
         }
 
 

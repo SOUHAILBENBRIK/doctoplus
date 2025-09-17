@@ -25,7 +25,7 @@ export default function RegisterPage() {
     resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
-      specialty: "", // replaced lastName with specialty
+      specialty: "",
       email: "",
       password: "",
     },

@@ -14,12 +14,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 🔓 Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
-
-        {/* 🎓 Student routes */}
         <Route element={<ProtectedRoute roles={["PRO"]} />}>
           <Route path="/dashboard" element={<DashboardLayout />} >
             <Route index element={<Navigate to="appointments" replace />} />

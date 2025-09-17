@@ -9,7 +9,7 @@ class ApiService {
   ));
 
   ApiService() {
-    // Add interceptor to automatically attach token to requests
+    //  interceptor to automatically attach token to requests
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -17,10 +17,10 @@ class ApiService {
           if (token != null && token.isNotEmpty) {
             options.headers["Authorization"] = "Bearer $token";
           }
-          return handler.next(options); // continue
+          return handler.next(options); 
         },
         onError: (DioException e, handler) {
-          // You can handle 401/403 globally here if needed
+          
           return handler.next(e);
         },
       ),

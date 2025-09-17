@@ -30,10 +30,8 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
 
+  // admin can delete any user
     public void deleteUser(String id) {
         userRepository.deleteById(id);
     }

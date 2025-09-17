@@ -5,7 +5,6 @@ import 'package:mobile/controller/disponibilities_provider.dart';
 import 'package:mobile/controller/professionals_provider.dart';
 import 'package:mobile/controller/rendezvous_provider.dart';
 import 'package:mobile/service/api_service.dart';
-import 'package:mobile/ui/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {

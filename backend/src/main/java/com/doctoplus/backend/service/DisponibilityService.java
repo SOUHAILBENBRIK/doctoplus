@@ -71,7 +71,7 @@ public class DisponibilityService {
 
         // 🔹 Only Pros can create disponibilities
         if (pro.getRole() != Role.PRO) {
-            throw new RuntimeException("Only professionals can create disponibilities.");
+            throw new RuntimeException("Only professionals can create availabilities.");
         }
 
         // 🔹 Check if the same time range already exists
@@ -82,13 +82,9 @@ public class DisponibilityService {
                 );
 
         if (exists) {
-            throw new RuntimeException("This disponibility already exists for this time slot.");
+            throw new RuntimeException("This availabilities already exists for this time slot.");
         }
-
-        // 🔹 Assign the Pro automatically
         disponibility.setPro(pro);
-
-        // 🔹 Generate 1-hour slots between startTime and endTime
         LocalDateTime start = disponibility.getStartTime();
         LocalDateTime end = disponibility.getEndTime();
         List<LocalTime> slots = new ArrayList<>();
