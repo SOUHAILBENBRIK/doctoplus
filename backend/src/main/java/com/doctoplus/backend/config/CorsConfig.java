@@ -1,4 +1,4 @@
-package com.doctoplus.backend.security;
+package com.doctoplus.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
