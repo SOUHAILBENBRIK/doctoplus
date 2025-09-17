@@ -31,6 +31,11 @@ public class DisponibilityService {
     public List<Disponibility> getDisponibilitiesByPro(String proId) {
         return disponibilityRepository.findByProId(proId);
     }
+    public List<Disponibility> getDisponibilitiesByMe(String email) {
+        User pro = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found."));
+        return disponibilityRepository.findByProId(pro.getId());
+    }
 
 
     public List<Map<String, String>> getAvailableSlotsWithDate(String proId) {

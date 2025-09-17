@@ -26,6 +26,12 @@ public class RendezVousController {
     public List<RendezVous> getRendezVousByPro(@PathVariable String proId) {
         return rendezVousService.getByPro(proId);
     }
+    @GetMapping("/pro/me")
+    public List<RendezVous> getRendezVousByMe() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return rendezVousService.getByProMe(email);
+    }
+
 
     @GetMapping("/{id}")
     public Optional<RendezVous> getRendezVousById(@PathVariable String id) {

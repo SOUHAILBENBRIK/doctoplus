@@ -36,6 +36,11 @@ public class RendezVousService {
     public List<RendezVous> getByPro(String proId) {
         return rendezVousRepository.findByProId(proId);
     }
+    public List<RendezVous> getByProMe(String email) {
+        User pro = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found."));
+        return rendezVousRepository.findByProId(pro.getId());
+    }
 
     public RendezVous saveRendezVous(RendezVous rendezVous) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

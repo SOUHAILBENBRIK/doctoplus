@@ -25,9 +25,22 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
+    public Map<String, Object>  register(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        String token = jwtService.generateToken(
+                savedUser.getEmail(),
+                Map.of("role", savedUser.getRole().name())
+        );
+        return Map.of(
+                "token", token,
+                "user", Map.of(
+                        "id", savedUser.getId(),
+                        "name", savedUser.getName(),
+                        "email", savedUser.getEmail(),
+                        "role", savedUser.getRole()
+                )
+        );
     }
 
     @PostMapping("/login")
